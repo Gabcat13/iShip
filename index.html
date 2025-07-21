@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iShip</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="landing-container">
+    <header class="main-header">
+      <h1>iShip</h1>
+      <p>Your fast, reliable delivery partner.</p>
+    </header>
+
+    <main class="content-sections">
+      <section class="quote-section">
+        <h2>Request a Quote</h2>
+        <form action="#" method="POST">
+          <label for="pickup">Pickup Address:</label>
+          <input type="text" id="pickup" name="pickup" required />
+
+          <label for="dropoff">Drop-off Address:</label>
+          <input type="text" id="dropoff" name="dropoff" required />
+
+          <label for="weight">Package Weight (kg):</label>
+          <input type="number" id="weight" name="weight" step="0.1" required />
+
+          <button type="submit">Get Quote</button>
+        </form>
+      </section>
+
+      <section class="track-section">
+        <h2>Track Your Parcel</h2>
+        <form action="#" method="GET">
+          <label for="tracking_id">Tracking ID:</label>
+          <input type="text" id="tracking_id" name="tracking_id" required />
+
+          <button type="submit">Track</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 iShip</p>
+    </footer>
+  </div>
+</body>
+</html>
