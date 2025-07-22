@@ -56,6 +56,36 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Failed to create tracking. Try again.");
     }
   });
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const adminCode = params.get('admin');
+
+  if (adminCode === 'access123') {
+    document.getElementById("adminTrackingSection").style.display = "block";
+  }
+});
+
+// Admin tracking creation form logic
+document.getElementById("createForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const pickup = document.getElementById("pickup").value.trim();
+  const dropoff = document.getElementById("dropoff").value.trim();
+  const weight = parseFloat(document.getElementById("weight").value);
+
+  try {
+    const res = await fetch("https://iship-backend.onrender.com/api/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pickup, dropoff, weight })
+    });
+
+    const data = await res.json();
+    document.getElementById("trackingResult").textContent = `Tracking ID: ${data.trackingId}`;
+  } catch (err) {
+    alert("Failed to create tracking.");
+  }
+});
 
   // Update status (admin)
   document.getElementById("updateForm").addEventListener("submit", async (e) => {
