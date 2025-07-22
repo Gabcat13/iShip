@@ -2,233 +2,225 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>iSHIP - Fast & Reliable Delivery</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>iSHIP Courier Tracking</title>
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
       margin: 0;
       padding: 0;
-      background: #f4f6f8;
-      color: #333;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #222;
     }
     header {
-      background-color: #002B5B;
-      color: #fff;
-      padding: 30px 10px;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
+      margin: 40px 0 30px;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #0078d7;
       letter-spacing: 2px;
     }
-    section {
-      margin: 40px auto;
-      padding: 20px;
-      max-width: 500px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    main {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 350px;
     }
     form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
     }
-    input, button {
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      margin-top: 15px;
+      color: #555;
+    }
+    input[type="text"], input[type="password"] {
       padding: 10px;
-      font-size: 1em;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      border: 1.8px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #0078d7;
+      outline: none;
     }
     button {
-      background-color: #0066cc;
+      margin-top: 25px;
+      padding: 12px;
+      background-color: #0078d7;
+      border: none;
+      border-radius: 6px;
       color: white;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: 0.3s;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #004f99;
+      background-color: #005ea2;
+    }
+    #trackingResult {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 6px;
+      background-color: #eef6ff;
+      border: 1px solid #0078d7;
+      display: none;
+      white-space: pre-wrap;
     }
     #adminContainer {
-      display: none;
-      background: #fff8f0;
-      margin-top: 30px;
-    }
-    footer {
       margin-top: 40px;
       padding: 20px;
-      background: #002B5B;
-      color: white;
+      border: 2px solid #0078d7;
+      border-radius: 10px;
+      background-color: #f0f9ff;
+      display: none;
+    }
+    #adminContainer h2 {
+      margin-top: 0;
+      color: #005ea2;
+    }
+    #adminContainer label {
+      margin-top: 12px;
+    }
+    #adminContainer textarea {
+      resize: vertical;
+      min-height: 80px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+      font-family: monospace;
+    }
+    #loginAdminSection {
+      margin-bottom: 30px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>iSHIP</h1>
-    <p>Your Fast & Reliable Delivery Partner</p>
-  </header>
+  <header>iSHIP</header>
 
-  <!-- Quote Request -->
-  <section>
-    <h2>Request a Quote</h2>
-    <form id="quoteForm">
-      <label>Pickup Address:</label>
-      <input type="text" id="pickup" required />
+  <main>
+    <section id="userTracking">
+      <form id="trackForm">
+        <label for="trackingId">Track Package</label>
+        <input type="text" id="trackingId" placeholder="Enter Tracking Number" required />
+        <button type="submit">Track</button>
+      </form>
 
-      <label>Drop-off Address:</label>
-      <input type="text" id="dropoff" required />
+      <div id="trackingResult"></div>
+    </section>
 
-      <label>Package Weight (kg):</label>
-      <input type="number" id="weight" step="0.1" required />
+    <section id="loginAdminSection">
+      <button onclick="showAdminLogin()">Login as Admin</button>
+    </section>
 
-      <button type="submit">Get Quote</button>
-    </form>
-  </section>
+    <section id="adminContainer">
+      <h2>Admin Panel - Create New Tracking</h2>
+      <form id="adminCreateForm">
+        <label for="recipientName">Recipient Name</label>
+        <input type="text" id="recipientName" placeholder="Enter Recipient Name" required />
 
-  <!-- Track Your Package -->
-  <section>
-    <h2>Track Your Package</h2>
-    <form id="trackForm">
-      <label for="trackInput">Tracking ID:</label>
-      <input type="text" id="trackInput" placeholder="Enter tracking ID..." required />
-      <button type="submit">Track</button>
-    </form>
-  </section>
+        <label for="pickup">Pickup Location</label>
+        <input type="text" id="pickup" placeholder="Enter Pickup Location" required />
 
-  <!-- 🔒 Hidden Admin Area -->
-  <section id="adminContainer">
-    <h2>Admin Tools</h2>
+        <label for="dropoff">Dropoff Location</label>
+        <input type="text" id="dropoff" placeholder="Enter Dropoff Location" required />
 
-    <!-- Create Tracking -->
-    <form id="createForm">
-      <h3>Create Tracking</h3>
-      <label>Pickup Address:</label>
-      <input type="text" id="adminPickup" required />
+        <label for="weight">Weight</label>
+        <input type="text" id="weight" placeholder="Enter Package Weight" required />
 
-      <label>Drop-off Address:</label>
-      <input type="text" id="adminDropoff" required />
-
-      <label>Weight (kg):</label>
-      <input type="number" id="adminWeight" required />
-
-      <button type="submit">Create Tracking</button>
-    </form>
-
-    <!-- Update Status -->
-    <form id="updateForm" style="margin-top: 30px;">
-      <h3>Update Status</h3>
-      <label>Tracking ID:</label>
-      <input type="text" id="trackingId" required />
-
-      <label>New Status:</label>
-      <input type="text" id="status" required />
-
-      <button type="submit">Update Status</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 iSHIP Logistics. All rights reserved.</p>
-  </footer>
+        <button type="submit">Create Tracking Number</button>
+      </form>
+    </section>
+  </main>
 
   <script>
-    const BACKEND_URL = "https://iship-backend.onrender.com";
+    const backendURL = "https://iship-backend.onrender.com";
 
-    // Admin login
-    const password = prompt("Enter Admin Password (or leave blank):");
-    if (password === "DAKOTA14!") {
-      document.getElementById("adminContainer").style.display = "block";
+    // Show Admin Panel after password check
+    function showAdminLogin() {
+      const password = prompt("Admin Password:");
+      if (password === "DAKOTA14!") {
+        document.getElementById("adminContainer").style.display = "block";
+        document.getElementById("loginAdminSection").style.display = "none";
+        alert("Admin access granted.");
+      } else {
+        alert("Incorrect password.");
+      }
     }
 
-    // Create Tracking
-    document.getElementById("createForm").addEventListener("submit", async (e) => {
+    // User tracking form submission
+    document.getElementById("trackForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const pickup = document.getElementById("adminPickup").value.trim();
-      const dropoff = document.getElementById("adminDropoff").value.trim();
-      const weight = document.getElementById("adminWeight").value;
+      const trackingId = document.getElementById("trackingId").value.trim().toUpperCase();
 
-      const res = await fetch(`${BACKEND_URL}/api/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pickup, dropoff, weight })
-      });
-
-      const data = await res.json();
-      alert(`Tracking ID created: ${data.trackingId}`);
-    });
-
-    // Update Status
-    document.getElementById("updateForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const trackingId = document.getElementById("trackingId").value.trim();
-      const status = document.getElementById("status").value.trim();
-
-      const res = await fetch(`${BACKEND_URL}/api/update/${trackingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status })
-      });
-
-      const data = await res.json();
-      alert(data.message || "Status updated.");
-    });
-
-    // Track Package
-    document.getElementById("trackForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const trackingId = document.getElementById("trackInput").value.trim();
+      if (!trackingId) return;
 
       try {
-        const res = await fetch(`${BACKEND_URL}/api/track/${trackingId}`);
-        if (!res.ok) throw new Error("Tracking ID not found");
+        const res = await fetch(`${backendURL}/api/track/${trackingId}`);
+        if (!res.ok) throw new Error("Tracking ID not found.");
         const data = await res.json();
 
-        // Open new page with details (excluding weight)
-        const detailWindow = window.open("", "_blank");
-        detailWindow.document.write(`
-          <html>
-            <head>
-              <title>Tracking Details</title>
-              <style>
-                body {
-                  font-family: 'Roboto', sans-serif;
-                  background: #f4f6f8;
-                  padding: 40px;
-                  text-align: center;
-                }
-                .box {
-                  background: white;
-                  padding: 30px;
-                  border-radius: 8px;
-                  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                  max-width: 500px;
-                  margin: auto;
-                }
-                h2 {
-                  color: #002B5B;
-                }
-              </style>
-            </head>
-            <body>
-              <div class="box">
-                <h2>Tracking Details</h2>
-                <p><strong>Tracking ID:</strong> ${data.trackingId}</p>
-                <p><strong>Pickup:</strong> ${data.pickup}</p>
-                <p><strong>Drop-off:</strong> ${data.dropoff}</p>
-                <p><strong>Status:</strong> ${data.status}</p>
-                <p><strong>Last Updated:</strong> ${new Date(data.lastUpdated).toLocaleString()}</p>
-              </div>
-            </body>
-          </html>
-        `);
+        // Build nice display (hide weight here as requested)
+        const details = `
+Recipient Name: ${data.recipientName || "N/A"}
+Pickup: ${data.pickup}
+Dropoff: ${data.dropoff}
+Status: ${data.status}
+Last Updated: ${new Date(data.lastUpdated).toLocaleString()}
+        `;
+        const resultDiv = document.getElementById("trackingResult");
+        resultDiv.textContent = details;
+        resultDiv.style.display = "block";
+
       } catch (err) {
-        alert("Invalid Tracking ID");
+        alert(err.message);
+        document.getElementById("trackingResult").style.display = "none";
+      }
+    });
+
+    // Admin create form submission
+    document.getElementById("adminCreateForm").addEventListener("submit", async e => {
+      e.preventDefault();
+
+      const recipientName = document.getElementById("recipientName").value.trim();
+      const pickup = document.getElementById("pickup").value.trim();
+      const dropoff = document.getElementById("dropoff").value.trim();
+      const weight = document.getElementById("weight").value.trim();
+
+      if (!recipientName || !pickup || !dropoff || !weight) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${backendURL}/api/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ recipientName, pickup, dropoff, weight }),
+        });
+
+        if (!res.ok) throw new Error("Failed to create tracking number.");
+
+        const data = await res.json();
+        alert(`Tracking number created: ${data.trackingId}`);
+
+        // Reset form
+        e.target.reset();
+
+      } catch (err) {
+        alert(err.message);
       }
     });
   </script>
+
 </body>
 </html>
