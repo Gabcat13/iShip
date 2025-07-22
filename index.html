@@ -1,180 +1,101 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>iSHIP - Fast & Reliable Delivery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
-    }
-
     body {
+      font-family: 'Roboto', sans-serif;
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: #fff;
-      color: #1a1a1a;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    header {
-      background: #d90429; /* DHL red */
-      color: white;
+      padding: 0;
+      background: #f4f6f8;
+      color: #333;
       text-align: center;
-      padding: 2.5rem 1rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      letter-spacing: 2px;
     }
-
+    header {
+      background-color: #002B5B;
+      color: #fff;
+      padding: 30px 10px;
+    }
     header h1 {
       margin: 0;
-      font-weight: 700;
-      font-size: 2.8rem;
-      text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5em;
+      letter-spacing: 2px;
     }
-
-    header p {
-      margin-top: 0.3rem;
-      font-weight: 500;
-      font-size: 1.1rem;
-      font-style: italic;
-      opacity: 0.85;
-    }
-
-    main {
-      max-width: 480px;
-      margin: 2rem auto 4rem;
-      padding: 0 1rem;
-    }
-
     section {
-      background: #f7f7f7;
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 500px;
+      background: #fff;
       border-radius: 8px;
-      box-shadow: 0 3px 7px rgba(0,0,0,0.07);
-      padding: 1.8rem 2rem;
-      margin-bottom: 2.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: left;
     }
-
-    h2 {
-      font-weight: 700;
-      color: #d90429;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
-
     label {
-      display: block;
       font-weight: 600;
-      margin-bottom: 0.3rem;
-      font-size: 0.9rem;
-      color: #333;
+      color: #222;
     }
-
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 0.65rem 0.8rem;
-      margin-bottom: 1.25rem;
-      border: 2px solid #ddd;
+    input, button {
+      padding: 10px;
+      font-size: 1em;
       border-radius: 5px;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
     }
-
-    input[type="text"]:focus,
-    input[type="number"]:focus {
-      border-color: #d90429;
-      outline: none;
-      box-shadow: 0 0 5px rgba(217,4,41,0.4);
-    }
-
     button {
-      display: inline-block;
-      background: #d90429;
+      background-color: #0066cc;
       color: white;
-      border: none;
-      padding: 0.85rem 1.5rem;
-      font-weight: 700;
-      font-size: 1rem;
-      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 6px rgba(217,4,41,0.3);
-      width: 100%;
+      transition: 0.3s;
     }
-
     button:hover {
-      background: #a50320;
-      box-shadow: 0 6px 8px rgba(165,3,32,0.5);
+      background-color: #004f99;
     }
-
-    /* Admin Section Hidden by default */
     #adminContainer {
       display: none;
-      background: #fff3f3;
-      border: 1px solid #d90429;
-      padding: 1.5rem 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(217,4,41,0.2);
+      background: #fff8f0;
+      margin-top: 30px;
+      text-align: left;
     }
-
-    #adminContainer h3 {
-      margin-top: 0;
-      color: #d90429;
-      text-transform: uppercase;
+    #loginSection {
+      margin: 20px auto;
+      max-width: 500px;
     }
-
     footer {
-      text-align: center;
-      color: #999;
-      font-size: 0.85rem;
-      padding: 1rem 0;
-      border-top: 1px solid #ddd;
-      max-width: 480px;
-      margin: 0 auto 2rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      main {
-        margin: 1rem;
-      }
-      header h1 {
-        font-size: 2rem;
-      }
+      margin-top: 40px;
+      padding: 20px;
+      background: #002B5B;
+      color: white;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>iSHIP</h1>
-  <p>Your Fast & Reliable Delivery Partner</p>
-</header>
-
-<main>
+  <header>
+    <h1>iSHIP</h1>
+    <p>Your Fast & Reliable Delivery Partner</p>
+  </header>
 
   <!-- Quote Request -->
   <section>
     <h2>Request a Quote</h2>
     <form id="quoteForm">
-      <label for="pickup">Pickup Address</label>
-      <input type="text" id="pickup" name="pickup" placeholder="Enter pickup address" required />
+      <label for="pickup">Pickup Address:</label>
+      <input type="text" id="pickup" required />
 
-      <label for="dropoff">Drop-off Address</label>
-      <input type="text" id="dropoff" name="dropoff" placeholder="Enter delivery address" required />
+      <label for="dropoff">Drop-off Address:</label>
+      <input type="text" id="dropoff" required />
 
-      <label for="weight">Package Weight (kg)</label>
-      <input type="number" id="weight" name="weight" placeholder="Enter weight" step="0.1" required />
+      <label for="weight">Package Weight (kg):</label>
+      <input type="number" id="weight" step="0.1" required />
 
       <button type="submit">Get Quote</button>
     </form>
@@ -184,51 +105,187 @@
   <section>
     <h2>Track Your Package</h2>
     <form id="trackForm">
-      <label for="trackInput">Tracking ID</label>
-      <input type="text" id="trackInput" name="trackInput" placeholder="Enter your tracking ID" required />
+      <label for="trackInput">Tracking ID:</label>
+      <input type="text" id="trackInput" placeholder="Enter tracking ID..." required />
       <button type="submit">Track</button>
     </form>
   </section>
 
-  <!-- Admin Tools (hidden by default) -->
+  <!-- Login Section -->
+  <section id="loginSection">
+    <button id="loginBtn">Login</button>
+  </section>
+
+  <!-- 🔒 Hidden Admin Area -->
   <section id="adminContainer">
     <h2>Admin Tools</h2>
 
     <!-- Create Tracking -->
     <form id="createForm">
       <h3>Create Tracking</h3>
-      <label for="adminPickup">Pickup Address</label>
-      <input type="text" id="adminPickup" name="adminPickup" placeholder="Pickup Address" required />
+      <label for="adminPickup">Pickup Address:</label>
+      <input type="text" id="adminPickup" required />
 
-      <label for="adminDropoff">Drop-off Address</label>
-      <input type="text" id="adminDropoff" name="adminDropoff" placeholder="Drop-off Address" required />
+      <label for="adminDropoff">Drop-off Address:</label>
+      <input type="text" id="adminDropoff" required />
 
-      <label for="adminWeight">Weight (kg)</label>
-      <input type="number" id="adminWeight" name="adminWeight" placeholder="Weight" step="0.1" required />
+      <label for="adminWeight">Weight (kg):</label>
+      <input type="number" id="adminWeight" required />
 
       <button type="submit">Create Tracking</button>
     </form>
 
     <!-- Update Status -->
-    <form id="updateForm" style="margin-top: 2rem;">
+    <form id="updateForm" style="margin-top: 30px;">
       <h3>Update Status</h3>
-      <label for="trackingId">Tracking ID</label>
-      <input type="text" id="trackingId" name="trackingId" placeholder="Tracking ID" required />
+      <label for="trackingId">Tracking ID:</label>
+      <input type="text" id="trackingId" required />
 
-      <label for="status">New Status</label>
-      <input type="text" id="status" name="status" placeholder="Status" required />
+      <label for="status">New Status:</label>
+      <input type="text" id="status" required />
 
       <button type="submit">Update Status</button>
     </form>
   </section>
 
-</main>
+  <footer>
+    <p>&copy; 2025 iSHIP Logistics. All rights reserved.</p>
+  </footer>
 
-<footer>
-  &copy; 2025 iSHIP Logistics. All rights reserved.
-</footer>
+  <script>
+    const BACKEND_URL = "https://iship-backend.onrender.com";
 
-<script src="script.js"></script>
+    const loginBtn = document.getElementById('loginBtn');
+    const adminContainer = document.getElementById('adminContainer');
+    const loginSection = document.getElementById('loginSection');
 
+    loginBtn.addEventListener('click', () => {
+      const password = prompt("Enter Admin Password:");
+      if(password === "DAKOTA14!") {
+        adminContainer.style.display = 'block';
+        loginSection.style.display = 'none'; // hide login button after successful login
+      } else {
+        alert("Incorrect password");
+      }
+    });
+
+    // Quote request submission
+    document.getElementById("quoteForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const pickup = document.getElementById("pickup").value.trim();
+      const dropoff = document.getElementById("dropoff").value.trim();
+      const weight = parseFloat(document.getElementById("weight").value);
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/quote`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pickup, dropoff, weight })
+        });
+
+        const data = await res.json();
+        alert(`Quote price: $${data.price.toFixed(2)}`);
+      } catch (err) {
+        alert("Failed to get quote. Try again.");
+      }
+    });
+
+    // Create tracking (admin)
+    document.getElementById("createForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const pickup = document.getElementById("adminPickup").value.trim();
+      const dropoff = document.getElementById("adminDropoff").value.trim();
+      const weight = parseFloat(document.getElementById("adminWeight").value);
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pickup, dropoff, weight })
+        });
+
+        const data = await res.json();
+        alert(`Tracking ID created: ${data.trackingId}`);
+      } catch (err) {
+        alert("Failed to create tracking. Try again.");
+      }
+    });
+
+    // Update status (admin)
+    document.getElementById("updateForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const trackingId = document.getElementById("trackingId").value.trim();
+      const status = document.getElementById("status").value.trim();
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/update/${trackingId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status })
+        });
+
+        const data = await res.json();
+        alert(data.message || "Status updated.");
+      } catch (err) {
+        alert("Failed to update status. Try again.");
+      }
+    });
+
+    // Track package and show details popup
+    document.getElementById("trackForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const trackingId = document.getElementById("trackInput").value.trim();
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/track/${trackingId}`);
+        if (!res.ok) throw new Error("Tracking ID not found");
+        const data = await res.json();
+
+        const detailWindow = window.open("", "_blank");
+        detailWindow.document.write(`
+          <html>
+            <head>
+              <title>Tracking Details</title>
+              <style>
+                body {
+                  font-family: 'Roboto', sans-serif;
+                  background: #f4f6f8;
+                  padding: 40px;
+                  text-align: center;
+                }
+                .box {
+                  background: white;
+                  padding: 30px;
+                  border-radius: 8px;
+                  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                  max-width: 500px;
+                  margin: auto;
+                  text-align: left;
+                }
+                h2 {
+                  color: #002B5B;
+                }
+                p {
+                  font-size: 1.1em;
+                  margin: 10px 0;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="box">
+                <h2>Tracking Details</h2>
+                <p><strong>Recipient Name:</strong> ${data.pickup}</p>
+                <p><strong>Delivery Address:</strong> ${data.dropoff}</p>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Last Updated:</strong> ${new Date(data.lastUpdated).toLocaleString()}</p>
+              </div>
+            </body>
+          </html>
+        `);
+      } catch (err) {
+        alert("Invalid Tracking ID");
+      }
+    });
+  <script src="script.js"></script>
 </body>
 </html>
