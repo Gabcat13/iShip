@@ -77,7 +77,8 @@
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    input[type="password"] {
       width: 100%;
       padding: 0.65rem 0.8rem;
       margin-bottom: 1.25rem;
@@ -88,7 +89,8 @@
     }
 
     input[type="text"]:focus,
-    input[type="number"]:focus {
+    input[type="number"]:focus,
+    input[type="password"]:focus {
       border-color: #d90429;
       outline: none;
       box-shadow: 0 0 5px rgba(217,4,41,0.4);
@@ -130,6 +132,30 @@
       margin-top: 0;
       color: #d90429;
       text-transform: uppercase;
+    }
+
+    /* Login Section */
+    #loginSection {
+      background: #fff3f3;
+      border: 1px solid #d90429;
+      padding: 1.5rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(217,4,41,0.2);
+      margin-bottom: 2.5rem;
+    }
+
+    #loginSection h2 {
+      color: #d90429;
+      margin-top: 0;
+      text-transform: uppercase;
+    }
+
+    #loginMessage {
+      color: red;
+      display: none;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
     }
 
     footer {
@@ -187,6 +213,14 @@
       <input type="text" id="trackInput" name="trackInput" placeholder="Enter your tracking ID" required />
       <button type="submit">Track</button>
     </form>
+  </section>
+
+  <!-- Admin Login Section -->
+  <section id="loginSection">
+    <h2>Admin Login</h2>
+    <input type="password" id="adminPassword" placeholder="Enter admin password" />
+    <button id="loginBtn">Login</button>
+    <p id="loginMessage">Incorrect password</p>
   </section>
 
   <!-- Admin Tools (hidden by default) -->
