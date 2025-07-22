@@ -31,17 +31,24 @@
       background: #fff;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: left;
     }
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+    label {
+      font-weight: 600;
+      color: #222;
+    }
     input, button {
       padding: 10px;
       font-size: 1em;
       border-radius: 5px;
       border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
     }
     button {
       background-color: #0066cc;
@@ -56,6 +63,11 @@
       display: none;
       background: #fff8f0;
       margin-top: 30px;
+      text-align: left;
+    }
+    #loginSection {
+      margin: 20px auto;
+      max-width: 500px;
     }
     footer {
       margin-top: 40px;
@@ -76,13 +88,13 @@
   <section>
     <h2>Request a Quote</h2>
     <form id="quoteForm">
-      <label>Pickup Address:</label>
+      <label for="pickup">Pickup Address:</label>
       <input type="text" id="pickup" required />
 
-      <label>Drop-off Address:</label>
+      <label for="dropoff">Drop-off Address:</label>
       <input type="text" id="dropoff" required />
 
-      <label>Package Weight (kg):</label>
+      <label for="weight">Package Weight (kg):</label>
       <input type="number" id="weight" step="0.1" required />
 
       <button type="submit">Get Quote</button>
@@ -99,6 +111,11 @@
     </form>
   </section>
 
+  <!-- Login Section -->
+  <section id="loginSection">
+    <button id="loginBtn">Login</button>
+  </section>
+
   <!-- 🔒 Hidden Admin Area -->
   <section id="adminContainer">
     <h2>Admin Tools</h2>
@@ -106,13 +123,13 @@
     <!-- Create Tracking -->
     <form id="createForm">
       <h3>Create Tracking</h3>
-      <label>Pickup Address:</label>
+      <label for="adminPickup">Pickup Address:</label>
       <input type="text" id="adminPickup" required />
 
-      <label>Drop-off Address:</label>
+      <label for="adminDropoff">Drop-off Address:</label>
       <input type="text" id="adminDropoff" required />
 
-      <label>Weight (kg):</label>
+      <label for="adminWeight">Weight (kg):</label>
       <input type="number" id="adminWeight" required />
 
       <button type="submit">Create Tracking</button>
@@ -121,10 +138,10 @@
     <!-- Update Status -->
     <form id="updateForm" style="margin-top: 30px;">
       <h3>Update Status</h3>
-      <label>Tracking ID:</label>
+      <label for="trackingId">Tracking ID:</label>
       <input type="text" id="trackingId" required />
 
-      <label>New Status:</label>
+      <label for="status">New Status:</label>
       <input type="text" id="status" required />
 
       <button type="submit">Update Status</button>
@@ -138,46 +155,83 @@
   <script>
     const BACKEND_URL = "https://iship-backend.onrender.com";
 
-    // Admin login
-    const password = prompt("Enter Admin Password (or leave blank):");
-    if (password === "DAKOTA14!") {
-      document.getElementById("adminContainer").style.display = "block";
-    }
+    const loginBtn = document.getElementById('loginBtn');
+    const adminContainer = document.getElementById('adminContainer');
+    const loginSection = document.getElementById('loginSection');
 
-    // Create Tracking
+    loginBtn.addEventListener('click', () => {
+      const password = prompt("Enter Admin Password:");
+      if(password === "DAKOTA14!") {
+        adminContainer.style.display = 'block';
+        loginSection.style.display = 'none'; // hide login button after successful login
+      } else {
+        alert("Incorrect password");
+      }
+    });
+
+    // Quote request submission
+    document.getElementById("quoteForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const pickup = document.getElementById("pickup").value.trim();
+      const dropoff = document.getElementById("dropoff").value.trim();
+      const weight = parseFloat(document.getElementById("weight").value);
+
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/quote`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pickup, dropoff, weight })
+        });
+
+        const data = await res.json();
+        alert(`Quote price: $${data.price.toFixed(2)}`);
+      } catch (err) {
+        alert("Failed to get quote. Try again.");
+      }
+    });
+
+    // Create tracking (admin)
     document.getElementById("createForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const pickup = document.getElementById("adminPickup").value.trim();
       const dropoff = document.getElementById("adminDropoff").value.trim();
-      const weight = document.getElementById("adminWeight").value;
+      const weight = parseFloat(document.getElementById("adminWeight").value);
 
-      const res = await fetch(`${BACKEND_URL}/api/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pickup, dropoff, weight })
-      });
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pickup, dropoff, weight })
+        });
 
-      const data = await res.json();
-      alert(`Tracking ID created: ${data.trackingId}`);
+        const data = await res.json();
+        alert(`Tracking ID created: ${data.trackingId}`);
+      } catch (err) {
+        alert("Failed to create tracking. Try again.");
+      }
     });
 
-    // Update Status
+    // Update status (admin)
     document.getElementById("updateForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const trackingId = document.getElementById("trackingId").value.trim();
       const status = document.getElementById("status").value.trim();
 
-      const res = await fetch(`${BACKEND_URL}/api/update/${trackingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status })
-      });
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/update/${trackingId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status })
+        });
 
-      const data = await res.json();
-      alert(data.message || "Status updated.");
+        const data = await res.json();
+        alert(data.message || "Status updated.");
+      } catch (err) {
+        alert("Failed to update status. Try again.");
+      }
     });
 
-    // Track Package
+    // Track package and show details popup
     document.getElementById("trackForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const trackingId = document.getElementById("trackInput").value.trim();
@@ -187,7 +241,6 @@
         if (!res.ok) throw new Error("Tracking ID not found");
         const data = await res.json();
 
-        // Open new page with details (excluding weight)
         const detailWindow = window.open("", "_blank");
         detailWindow.document.write(`
           <html>
@@ -207,18 +260,22 @@
                   box-shadow: 0 0 10px rgba(0,0,0,0.1);
                   max-width: 500px;
                   margin: auto;
+                  text-align: left;
                 }
                 h2 {
                   color: #002B5B;
+                }
+                p {
+                  font-size: 1.1em;
+                  margin: 10px 0;
                 }
               </style>
             </head>
             <body>
               <div class="box">
                 <h2>Tracking Details</h2>
-                <p><strong>Tracking ID:</strong> ${data.trackingId}</p>
-                <p><strong>Pickup:</strong> ${data.pickup}</p>
-                <p><strong>Drop-off:</strong> ${data.dropoff}</p>
+                <p><strong>Recipient Name:</strong> ${data.pickup}</p>
+                <p><strong>Delivery Address:</strong> ${data.dropoff}</p>
                 <p><strong>Status:</strong> ${data.status}</p>
                 <p><strong>Last Updated:</strong> ${new Date(data.lastUpdated).toLocaleString()}</p>
               </div>
