@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,117 @@
   <title>iSHIP - Fast & Reliable Delivery</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* ... your existing styles ... */
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
 
-    /* Hide admin tools by default */
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #1a1a1a;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    header {
+      background: #d90429; /* DHL red */
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      letter-spacing: 2px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 2.8rem;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    header p {
+      margin-top: 0.3rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      font-style: italic;
+      opacity: 0.85;
+    }
+
+    main {
+      max-width: 480px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.07);
+      padding: 1.8rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #d90429;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      margin-bottom: 1.25rem;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #d90429;
+      outline: none;
+      box-shadow: 0 0 5px rgba(217,4,41,0.4);
+    }
+
+    button {
+      display: inline-block;
+      background: #d90429;
+      color: white;
+      border: none;
+      padding: 0.85rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 6px rgba(217,4,41,0.3);
+      width: 100%;
+    }
+
+    button:hover {
+      background: #a50320;
+      box-shadow: 0 6px 8px rgba(165,3,32,0.5);
+    }
+
+    /* Admin Section Hidden by default */
     #adminContainer {
       display: none;
       background: #fff3f3;
@@ -16,7 +125,32 @@
       padding: 1.5rem 2rem;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(217,4,41,0.2);
-      margin-top: 2rem;
+    }
+
+    #adminContainer h3 {
+      margin-top: 0;
+      color: #d90429;
+      text-transform: uppercase;
+    }
+
+    footer {
+      text-align: center;
+      color: #999;
+      font-size: 0.85rem;
+      padding: 1rem 0;
+      border-top: 1px solid #ddd;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      main {
+        margin: 1rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
@@ -28,22 +162,6 @@
 </header>
 
 <main>
-
-  <!-- Login Section -->
-  <section id="loginSection">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <label for="loginPassword">Password</label>
-      <input
-        type="password"
-        id="loginPassword"
-        name="loginPassword"
-        placeholder="Enter password"
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
-  </section>
 
   <!-- Quote Request -->
   <section>
@@ -111,5 +229,6 @@
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
